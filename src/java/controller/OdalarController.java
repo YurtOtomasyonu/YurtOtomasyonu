@@ -26,7 +26,15 @@ public class OdalarController implements Serializable {
     private BinaDao binaDao;
     
    
-    
+      public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException{
+        String str = value.toString();
+        if(str.length()<1){
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En az 1 hane giriniz"));
+        }
+        if(str.length()>3){
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En fazla 3 hane girilebilir"));
+        }
+    }
     public void delete(){
         this.getOdalarDao().remove(this.odalar);
         this.clearForm();
