@@ -1,0 +1,77 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 5, 2020, 10:01:39 PM
+    Author     : Onur ASLAN
+*/
+#warp{
+    margin: 0 auto ;
+    text-align: center;
+
+
+
+}
+#secret{
+    background-color: whitesmoke ;
+}
+#backgrounimg
+{
+    background-image: url("/images/1221.jpg");
+    background-color: whitesmoke;
+}
+#nheader
+{
+    background-color: whitesmoke ;
+    padding: 25px;
+
+}
+h1{
+    color: black;
+    background-color: white ;
+
+}
+#npar
+{
+    margin: 0 auto ;
+    text-align: center;
+
+    padding: 100px;
+}
+#footer
+{
+    padding: 75px;
+    margin: 0 auto;
+
+    text-align: center;
+
+
+}
+h2{
+    padding: 40px;
+
+}
+
+#register
+{
+
+    background-color: whitesmoke;
+    margin: 0 auto ;
+    text-align: center;
+}
+
+#ana
+{
+    background-color: whitesmoke;
+    margin: 0 auto ;
+    text-align: center;
+}
+#confirm
+{
+    padding: 100px;
+    background-color: #B0A3D1;
+    margin: 0 auto ;
+    text-align: center;
+}
