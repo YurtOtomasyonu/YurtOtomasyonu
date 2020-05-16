@@ -13,17 +13,17 @@
         </div>
         <div class="form-group">
             <label for="inputIsim">İsim</label>
-            <h:inputText id="inputIsim" value="#{personelController.personel.isim}" styleClass="form-control"  />
+            <h:inputText id="inputIsim" value="#{personelController.personel.isim}" styleClass="form-control" validator="#{personelController.validate}"  />
 
         </div>
         <div class="form-group">
             <label for="inputSoyad">Soyad</label>
-            <h:inputText id="inputSoyad" value="#{personelController.personel.soyad}" styleClass="form-control" />
+            <h:inputText id="inputSoyad" value="#{personelController.personel.soyad}" styleClass="form-control" validator="#{personelController.validate}" />
 
         </div>
         <div class="form-group">
             <label for="inputTc">Tc</label>
-            <h:inputText id="inputTc" value="#{personelController.personel.tc}" styleClass="form-control"  />
+            <h:inputText id="inputTc" value="#{personelController.personel.tc}" styleClass="form-control" validator="#{personelController.validate}"  />
 
         </div>
         <div class="form-group">

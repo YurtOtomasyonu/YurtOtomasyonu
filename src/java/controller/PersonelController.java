@@ -25,7 +25,15 @@ public class PersonelController implements Serializable {
     private List<Personeltur> personelturList;
     private PersonelturDao personelturDao;
     
-    
+     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException{
+        String str = value.toString();
+        if(str.length()<3){
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En az 8 hane giriniz"));
+        }
+        if(str.length()>20){
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En fazla 20 hane girilebilir"));
+        }
+    }
     
     public void delete(){
         this.getPersonelDao().remove(this.personel);
