@@ -21,6 +21,16 @@ public class OdemelerController implements Serializable {
     private OdemelerDao odemelerDao;
     private Odemeler odemeler;
 
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        String str = value.toString();
+        if (str.length() < 3) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En az 3 hane giriniz"));
+        }
+        if (str.length() > 10) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En fazla 10 hane girilebilir"));
+        }
+    }
+
     public void clearForm() {
         this.odemeler = new Odemeler();
     }
