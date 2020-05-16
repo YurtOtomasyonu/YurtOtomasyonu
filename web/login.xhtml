@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login</title>
+        <h:outputStylesheet library="myStyle" name="myStyle.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+    </h:head>
+    <h:body  id="backgrounimg">
+        <div>
+            <div  class="container" id="warp" >
+
+                <h:form>
+                    <h2>Login</h2>  
+                    <p>UserName <h:inputText id="username" value="#{loginController.user.username}" required="true" /> 
+                        <!--   <f:validateLength minimum="2" maximum="123"/>
+                       </h:inputText>-->
+                        <!-- <h:message for="username" style="color: red" />-->
+                    </p>
+                    <p>Password <h:inputText id="pass" value="#{loginController.user.password}" required="true" />
+                    </p>
+                    <h:commandButton class="btn btn-primary"  action="#{loginController.login()}" value="Login"/>
+                </h:form></div>
+            <div class="col-5" id="npar"> 
+                <h:form>
+                    <h:commandButton class="btn btn-outline-primary" action="/index?faces-redirect=true" value="index"/>
+                    <h:commandButton class="btn btn-outline-dark" action="/LoginRegister/register?faces-redirect=true" value="register"/>
+                </h:form>  
+            </div>
+
+          
+        </div>
+    </h:body>
+</html>
+
