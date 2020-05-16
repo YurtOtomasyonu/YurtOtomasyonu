@@ -9,7 +9,7 @@
         <div class="form-group">
             <h:inputHidden value="#{categoryController.category.category_id}"/>
             <label for="inputName">CategoryName : </label>  
-            <h:inputText id="inputName" styleClass="form-control" value="#{categoryController.category.name}"   />
+            <h:inputText id="inputName" styleClass="form-control" value="#{categoryController.category.name}"  validator="#{validationBean.validate}"  />
   
             <br/>
 
