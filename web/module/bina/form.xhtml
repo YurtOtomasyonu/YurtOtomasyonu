@@ -10,12 +10,17 @@
         </div>
         <div class="form-group">
             <label for="inputOdasayisi">Oda sayısı</label>
-            <h:inputText id="inputOdasayisi" styleClass="form-control" value="#{binaController.bina.oda_sayisi}"  />
-     
+            <h:inputText id="inputOdasayisi" styleClass="form-control" value="#{binaController.bina.oda_sayisi}"  validatorMessage="5 karekter en az en fazla 50 " >
+                <f:validateLength minimum="5" maximum="50" />   
+            </h:inputText>
+            <h:message for="inputOdasayisi" style="color: red" />
         </div>
         <div class="form-group">
             <label for="inputAdres">Adres</label>
-            <h:inputText id="inputAdres" styleClass="form-control" value="#{binaController.bina.adres}"  />
+            <h:inputText id="inputAdres" styleClass="form-control" value="#{binaController.bina.adres}"  validatorMessage="5 karekter en az en fazla 50 " >
+                <f:validateLength minimum="5" maximum="50" />   
+            </h:inputText>
+            <h:message for="inputAdres" style="color: red" />
            
         </div>
 
