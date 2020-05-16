@@ -7,14 +7,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <h:form>
                 <ul class="navbar-nav">
-                  
+                    <li class="nav-item active">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('personel')}" value="Personel" />
+                    </li>
+
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('duyur')}" value="Duyurlar" />
+                    </li>
                     <li class="nav-item">
                         <h:commandLink styleClass="nav-link" action="#{navigationBean.page('kitap')}" value="Kutuphane" />
                     </li>
                     <li class="nav-item">
                         <h:commandLink styleClass="nav-link" action="#{navigationBean.page('kitapCat')}" value="KitapCat" />
                     </li>
-                   <li class="nav-item">
+                    <li class="nav-item">
                         <h:commandLink styleClass="nav-link" action="#{navigationBean.page('odalar')}" value="Odalar" />
                     </li>
                     <li class="nav-item">
