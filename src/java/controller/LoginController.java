@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import entity.User;
@@ -32,58 +28,22 @@ public class LoginController implements Serializable {
     }
 
     public String login() {
-//        User tmp = getUserdao().validate(getUser().getUsername());
-//        if (tmp!=null && tmp.getPassword().equalsIgnoreCase(getUser().getPassword())) {
-//            //  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-//            setUser(tmp);
-//           
-//            if (getUser().getUturu().equals("Admin"))
-//        {
-//               return "/secret/secret?faces-redirect=true" ; 
-// 
-//        }
-//            else 
-//            return "/Users/View?faces-redirect=true" ;
-//        } else {
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("hatali ad veya şifre"));
-//            setUser(null);
-//            return "/login";
-//        }
-
         User tmp = getUserdao().validate(getUser().getUsername());
         if (tmp != null && tmp.getPassword().equalsIgnoreCase(getUser().getPassword())) {
-            //  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-            //HttpSession session = SessionUtils.getSession();
-            // session.setAttribute("username", user);
-
-            setUser(tmp);
+           setUser(tmp);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-
             if (tmp != null && tmp.getUturu().equals("Admin")) {
-                // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-
                 return "/secret/secret?faces-redirect=true";
-
             } else {
-                //  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-
                 return "/Users/View?faces-redirect=true";
             }
-             } else {
-
+        } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hata "));
             setUser(null);
-            // HttpSession session = SessionUtils.getSession();
-            // session.invalidate();
-
             return "login.xhtml";
         }
 
     }
-
-        
-
-    
 
     public User getUser() {
         if (this.user == null) {
