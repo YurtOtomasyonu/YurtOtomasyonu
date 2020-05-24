@@ -5,6 +5,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="kantin-table">
+        <pre> Page #{kantinController.page} of #{kantinController.pageCount} </pre>
+        <div class="btn-group">
+            <h:commandButton action="#{kantinController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+            <h:commandButton action="#{kantinController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+        </div>
+        <div>
+            Search (isim Column)  <h:inputText value="#{kantinController.searchTerm}" />
+            <h:commandButton action="#{kantinController.search()}" value="Search" />
+            <h:commandButton rendered="#{kantinController.searchTerm!=null}" action="#{kantinController.clearSearch()}" value="Clear Search" />
+        </div>
         <h:dataTable class="table table-striped table-hover" value="#{kantinController.kantinList}" var="kantin">
             <h:column>
                 <f:facet name="header">MALZEME İD</f:facet>

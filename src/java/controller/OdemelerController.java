@@ -15,11 +15,17 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class OdemelerController implements Serializable {
+public class OdemelerController extends BaseBean implements Serializable {
 
     private List<Odemeler> odemelerList;
     private OdemelerDao odemelerDao;
     private Odemeler odemeler;
+    
+    @Override
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getOdemelerDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
 
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String str = value.toString();
@@ -61,7 +67,7 @@ public class OdemelerController implements Serializable {
     }
 
     public List<Odemeler> getOdemelerList() {
-        this.odemelerList = this.getOdemelerDao().findAll();
+        this.odemelerList = this.getOdemelerDao().findAll(page, pageSize, this.getSearchTerm());
         return odemelerList;
     }
 

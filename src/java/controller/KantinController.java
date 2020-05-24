@@ -15,7 +15,7 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class KantinController implements Serializable {
+public class KantinController extends BaseBean implements Serializable {
     
     private Kantin kantin;
     private List<Kantin> kantinList;
@@ -24,7 +24,11 @@ public class KantinController implements Serializable {
     private List<Kantintur> kantinturList;
     private KantinturDao kantinturDao;
     
-   
+    @Override
+   public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getKantinDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
     
     public void delete(){
         this.getKantinDao().remove(this.kantin);
@@ -66,7 +70,7 @@ public class KantinController implements Serializable {
     }
 
     public List<Kantin> getKantinList() {
-        this.kantinList=this.getKantinDao().findAll();
+        this.kantinList=this.getKantinDao().findAll(page, pageSize ,  this.getSearchTerm());
         return kantinList;
     }
 
