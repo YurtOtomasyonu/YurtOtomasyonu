@@ -10,18 +10,18 @@
             <h:inputHidden value="#{categoryController.category.category_id}"/>
             <label for="inputName">CategoryName : </label>  
             <h:inputText id="inputName" styleClass="form-control" value="#{categoryController.category.name}"  validator="#{validationBean.validate}"  />
-  
+
             <br/>
 
         </div>
         <div class="form-group">
-            <h:commandButton rendered="#{categoryController.category.category_id != null}" styleClass="btn-primary" value="Update" action="#{categoryController.update}">
+            <h:commandButton rendered="#{loginController.user.u != 0}" styleClass="btn-primary" value="Update" action="#{categoryController.update}">
                 <f:ajax execute="category-form" render="category-form category-table"/>
             </h:commandButton>
-            <h:commandButton rendered="#{categoryController.category.category_id == null}" styleClass="btn-primary" value="Create" action="#{categoryController.create}">
+            <h:commandButton rendered="#{loginController.user.c != 0}" styleClass="btn-primary" value="Create" action="#{categoryController.create}">
                 <f:ajax execute="category-form" render="category-form category-table"/>
             </h:commandButton>
-            <h:commandButton rendered="#{categoryController.category.category_id != null}" styleClass="btn-primary" value="Delelte" action="#{categoryController.delete}">
+            <h:commandButton rendered="#{loginController.user.d != 0}" styleClass="btn-primary" value="Delelte" action="#{categoryController.delete}">
                 <f:ajax execute="category-form" render="category-form category-table"/>
             </h:commandButton>
 

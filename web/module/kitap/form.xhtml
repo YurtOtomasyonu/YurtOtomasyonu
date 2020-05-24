@@ -45,16 +45,16 @@
 
         <div class="form-group">
             <div class="form-group">
-                <h:commandButton  action="#{kutuphaneController.create}" value="Create"  styleClass="btn btn-primary " >
+                <h:commandButton  rendered="#{loginController.user.c != 0}" action="#{kutuphaneController.create}" value="Create"  styleClass="btn btn-primary " >
                     <f:ajax execute="@this" render="kitap-form"/>
                 </h:commandButton>
-                <h:commandButton  action="#{kutuphaneController.update}" value="Update" styleClass="btn btn-primary " >
+                <h:commandButton rendered="#{loginController.user.u != 0}" action="#{kutuphaneController.update}" value="Update" styleClass="btn btn-primary " >
                     <f:ajax execute="@this" render="kitap-form"/>
                 </h:commandButton>
-                <h:commandButton  action="#{kutuphaneController.delete}" value="Delete" styleClass="btn btn-danger " >
+                <h:commandButton rendered="#{loginController.user.d != 0}" action="#{kutuphaneController.delete}" value="Delete" styleClass="btn btn-danger " >
                     <f:ajax execute="@this" render="kitap-form"/>
                 </h:commandButton>
-                <h:commandButton  styleClass="btn btn-secondary" value="Clear form" action="#{kutuphaneController.clearForm()}">
+                <h:commandButton rendered="#{loginController.user.r != 0}" styleClass="btn btn-secondary" value="Clear form" action="#{kutuphaneController.clearForm()}">
                     <f:ajax execute="@this" render="kitap-form"/>
                 </h:commandButton>
             </div>
