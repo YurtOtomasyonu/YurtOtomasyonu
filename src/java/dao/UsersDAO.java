@@ -16,60 +16,36 @@ public class UsersDAO implements Serializable {
         Connection con;
         PreparedStatement ps;
 
-        User user2 = null ;
-        
+        User user2 = null;
+
         try {
             con = DBCon.getConnection();
-            ps = con.prepareStatement("select * from user  where  uname='"+user+"'");
-           
+            ps = con.prepareStatement("select * from user  where  uname='" + user + "'");
 
             ResultSet rs = ps.executeQuery();
             rs.next();
-            user2= new User ();
-            
-            
+            user2 = new User();
+
             user2.setUsername(rs.getString("uname"));
             user2.setPassword(rs.getString("password"));
             user2.setUturu(rs.getString("userTuru"));
+            user2.setC(rs.getLong("c"));
+            user2.setR(rs.getLong("r"));
+            user2.setU(rs.getLong("u"));
+            user2.setD(rs.getLong("d"));
 
-            
         } catch (SQLException ex) {
             System.out.println("Login error -->" + ex.getMessage());
-        } 
-      return user2 ;
-    }
-
-   /* public static boolean validate2(String user, String password) {
-        Connection con = null;
-        PreparedStatement ps = null;
-
-        try {
-            con = DBCon.getConnection();
-            ps = con.prepareStatement("Select uname,password from User where uname = ? and password = ?");
-            ps.setString(1, user);
-            ps.setString(2, password);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                //result found, means valid inputs
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Login error -->" + ex.getMessage());
-            return false;
-        } finally {
-            DBCon.close(con);
         }
-        return false;
+        return user2;
     }
-*/
+
     public static void insert(String uname, String password, String userTuru) {
         DBCon.getConnection();
-        
+
         try {
             Statement sts = DBCon.getConnection().createStatement();
-            String sql = "INSERT INTO user(uname,password,userTuru) VALUES('" + uname + "','" + password + "','" + userTuru + "')";
+            String sql = "INSERT INTO user(uname,password,userTuru,c,r,u,d) VALUES('" + uname + "','" + password + "','" + userTuru + "','" + 0 + "','" + 0 + "','" + 0 + "','" + 0 + "')";
             sts.executeUpdate(sql);
 
         } catch (SQLException ex) {
