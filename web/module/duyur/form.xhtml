@@ -22,13 +22,13 @@
             </div>
             <div class="form-group">
                 <div class="btn-group">
-                    <h:commandButton rendered="#{duyuruController.dyr.duyuru_id !=null}" action="#{duyuruController.create}" value="Create" styleClass="btn btn-primary" >
+                    <h:commandButton rendered="#{loginController.user.c != 0}" action="#{duyuruController.create}" value="Create" styleClass="btn btn-primary" >
                         <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
                     </h:commandButton>
-                    <h:commandButton rendered="#{duyuruController.dyr.duyuru_id!=null}" action="#{duyuruController.update}" value="Update" styleClass="btn btn-primary" >
+                    <h:commandButton rendered="#{loginController.user.u != 0}" action="#{duyuruController.update}" value="Update" styleClass="btn btn-primary" >
                         <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
                     </h:commandButton>
-                    <h:commandButton rendered="#{duyuruController.dyr.duyuru_id!=null}" action="#{duyuruController.delete}" value="Delete" styleClass="btn btn-danger" >
+                    <h:commandButton rendered="#{loginController.user.d != 0}" action="#{duyuruController.delete}" value="Delete" styleClass="btn btn-danger" >
                         <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
                     </h:commandButton>
                 </div>

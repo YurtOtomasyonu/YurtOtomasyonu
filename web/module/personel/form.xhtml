@@ -28,16 +28,16 @@
         </div>
         <div class="form-group">
             <div class="btn btn-group">
-                <h:commandButton rendered="#{personelController.personel.personel_id == null}" action="#{personelController.create}" value="Create" styleClass="btn btn-primary">
+                <h:commandButton rendered="#{loginController.user.c != 0}" action="#{personelController.create}" value="Create" styleClass="btn btn-primary">
                     <f:ajax execute="personel-form" render="personel-form personel-table" />
                 </h:commandButton>
-                <h:commandButton rendered="#{personelController.personel.personel_id != null}" action="#{personelController.update}" value="Update" styleClass="btn btn-secondary">
+                <h:commandButton rendered="#{loginController.user.u != 0}" action="#{personelController.update}" value="Update" styleClass="btn btn-secondary">
                     <f:ajax execute="personel-form" render="personel-form personel-table" />
                 </h:commandButton>
-                <h:commandButton rendered="#{personelController.personel.personel_id != null}" action="#{personelController.delete}" value="Delete" styleClass="btn btn-danger">
+                <h:commandButton rendered="#{loginController.user.d != 0}" action="#{personelController.delete}" value="Delete" styleClass="btn btn-danger">
                     <f:ajax execute="personel-form" render="personel-form personel-table" />
                 </h:commandButton>
-                <h:commandButton rendered="#{personelController.personel.personel_id != null}" styleClass="btn btn-secondary" value="Clear form" action="#{personelController.clearForm}">
+                <h:commandButton rendered="#{loginController.user.r != 0}" styleClass="btn btn-secondary" value="Clear form" action="#{personelController.clearForm}">
                     <f:ajax execute="@this" render="personel-form"/>
                 </h:commandButton>
             </div>
