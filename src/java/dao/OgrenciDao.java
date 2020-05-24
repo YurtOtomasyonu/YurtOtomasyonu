@@ -13,10 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DBConnection;
 
-public class OgrenciDao {
+public class OgrenciDao extends BaseDao {
     
-    private DBConnection db;
-    private Connection c;
+
     
     private OdalarDao odalarDao;
     
@@ -24,7 +23,7 @@ public class OgrenciDao {
         List<Ogrenci> ogrenciList = new ArrayList<>();
         
         try{
-            PreparedStatement pst = this.getC().prepareStatement("select * from ogrenci");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from ogrenci");
             ResultSet rs = pst.executeQuery();
             
             while(rs.next()){
@@ -47,7 +46,7 @@ public class OgrenciDao {
     }
      public void remove(Ogrenci ogrenci) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("delete from ogrenci where ogr_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from ogrenci where ogr_id=?");
             pst.setLong(1, ogrenci.getOgr_id());
             pst.executeUpdate();
             
@@ -59,7 +58,7 @@ public class OgrenciDao {
     
     public void create(Ogrenci ogrenci) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("insert into ogrenci (adi,soyadi,oda_id) values (?,?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into ogrenci (adi,soyadi,oda_id) values (?,?,?)");
             pst.setString(1, ogrenci.getAdi());
             pst.setString(2, ogrenci.getSoyadi());
             pst.setLong(3, ogrenci.getOdalar().getOda_id());
@@ -72,7 +71,7 @@ public class OgrenciDao {
     }
     public void edit(Ogrenci ogrenci) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("update ogrenci set adi=?,soyadi=?,oda_id=? where ogr_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update ogrenci set adi=?,soyadi=?,oda_id=? where ogr_id=?");
             pst.setString(1, ogrenci.getAdi());
             pst.setString(2, ogrenci.getSoyadi());
             pst.setLong(3, ogrenci.getOdalar().getOda_id());
@@ -92,17 +91,5 @@ public class OgrenciDao {
         return odalarDao;
     }
     
-    public DBConnection getDb() {
-        if(this.db==null){
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if(this.c==null){
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }

@@ -13,10 +13,9 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class OdalarDao {
+public class OdalarDao extends BaseDao {
     
-    private DBConnection db;
-    private Connection c;
+
     
     private BinaDao binaDao;
     
@@ -24,7 +23,7 @@ public class OdalarDao {
         List<Odalar> odalarList = new ArrayList<>();
         
         try{
-            PreparedStatement pst = this.getC().prepareStatement("select * from odalar");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from odalar");
             ResultSet rs = pst.executeQuery();
             
             while(rs.next()){
@@ -47,7 +46,7 @@ public class OdalarDao {
     public Odalar find(Long id){
         Odalar bb = null;
         try{
-            PreparedStatement st = this.getC().prepareStatement("select * from odalar where oda_id=?");
+            PreparedStatement st = this.getConnection().prepareStatement("select * from odalar where oda_id=?");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -65,7 +64,7 @@ public class OdalarDao {
     }
      public void remove(Odalar odalar) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("delete from odalar where oda_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from odalar where oda_id=?");
             pst.setLong(1, odalar.getOda_id());
             pst.executeUpdate();
             
@@ -78,7 +77,7 @@ public class OdalarDao {
     
     public void create(Odalar odalar) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("insert into odalar (oda_no,bina_id) values (?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into odalar (oda_no,bina_id) values (?,?)");
             pst.setInt(1, odalar.getOda_no());
             pst.setLong(2, odalar.getBina().getBina_id());
             
@@ -91,7 +90,7 @@ public class OdalarDao {
     }
     public void edit(Odalar odalar) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("update odalar set oda_no=?, bina_id=? where oda_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update odalar set oda_no=?, bina_id=? where oda_id=?");
             pst.setInt(1, odalar.getOda_no());
             pst.setLong(2, odalar.getBina().getBina_id());
             pst.setLong(3, odalar.getOda_id());
@@ -110,17 +109,5 @@ public class OdalarDao {
         return binaDao;
     }
     
-    public DBConnection getDb() {
-        if(this.db==null){
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if(this.c==null){
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }

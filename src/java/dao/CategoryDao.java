@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import util.DBConnection;
 
-public class CategoryDao {
+public class CategoryDao extends BaseDao {
 
   
-    private DBConnection connector;
-    private Connection connection;
+
 
     public List<Category> findAll() {
 
@@ -116,20 +115,7 @@ public class CategoryDao {
 
     }
 
-    public DBConnection getConnector() {
-        if (this.connector == null) {
-            this.connector = new DBConnection();
-        }
 
-        return connector;
-    }
-
-    public Connection getConnection() {
-        if (this.connection == null) {
-            this.connection = this.getConnector().connect();
-        }
-        return connection;
-    }
 //15
 
     public List<Category> getKutuphaneCategories(long kitab_id) {

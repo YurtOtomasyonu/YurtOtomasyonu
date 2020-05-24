@@ -13,10 +13,9 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class PersonelDao {
+public class PersonelDao extends BaseDao {
     
-    private DBConnection db;
-    private Connection c;
+
     
     private PersonelturDao personelturDao;
     
@@ -24,7 +23,7 @@ public class PersonelDao {
         List<Personel> personelList = new ArrayList<>();
         
         try{
-            PreparedStatement pst = this.getC().prepareStatement("select * from personel");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from personel");
             ResultSet rs = pst.executeQuery();
             
             while(rs.next()){
@@ -46,7 +45,7 @@ public class PersonelDao {
     }
      public void remove(Personel personel) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("delete from personel where personel_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from personel where personel_id=?");
             pst.setLong(1, personel.getPersonel_id());
             pst.executeUpdate();
             
@@ -58,7 +57,7 @@ public class PersonelDao {
     
     public void create(Personel personel) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("insert into personel (isim,soyad,tc,tur_id) values (?,?,?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into personel (isim,soyad,tc,tur_id) values (?,?,?,?)");
             pst.setString(1, personel.getIsim());
             pst.setString(2, personel.getSoyad());
             pst.setString(3, personel.getTc());
@@ -73,7 +72,7 @@ public class PersonelDao {
     }
     public void edit(Personel personel) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("update personel set isim=?, soyad=?, tc=?, tur_id=? where personel_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update personel set isim=?, soyad=?, tc=?, tur_id=? where personel_id=?");
             pst.setString(1, personel.getIsim());
             pst.setString(2, personel.getSoyad());
             pst.setString(3, personel.getTc());
@@ -94,17 +93,5 @@ public class PersonelDao {
         return personelturDao;
     }
     
-    public DBConnection getDb() {
-        if(this.db==null){
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if(this.c==null){
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }

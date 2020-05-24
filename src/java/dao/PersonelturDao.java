@@ -13,15 +13,14 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class PersonelturDao {
+public class PersonelturDao extends BaseDao {
 
-    private DBConnection db;
-    private Connection c;
+  
 
     public List<Personeltur> findAll() {
         List<Personeltur> ptList = new ArrayList<>();
         try {
-            PreparedStatement pst = this.getC().prepareStatement("select * from personel_tur");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from personel_tur");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -41,7 +40,7 @@ public class PersonelturDao {
     public Personeltur find(Long id) {
         Personeltur pt = null;
         try {
-            PreparedStatement st = this.getC().prepareStatement("select * from personel_tur where tur_id=?");
+            PreparedStatement st = this.getConnection().prepareStatement("select * from personel_tur where tur_id=?");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -57,17 +56,5 @@ public class PersonelturDao {
         return pt;
     }
 
-    public DBConnection getDb() {
-        if (this.db == null) {
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }

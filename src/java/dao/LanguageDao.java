@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import util.DBConnection;
 
-public class LanguageDao {
+public class LanguageDao extends BaseDao {
 
-    private DBConnection connector;
-    private Connection connection;
+ 
     //16
     public List<Language> findAll(){
         List<Language> llist=new ArrayList<>();
@@ -61,20 +60,4 @@ public class LanguageDao {
 
     }
 
-    
-
-    public DBConnection getConnector() {
-        if (this.connector == null) {
-            this.connector = new DBConnection();
-        }
-
-        return connector;
-    }
-
-    public Connection getConnection() {
-        if (this.connection == null) {
-            this.connection = this.getConnector().connect();
-        }
-        return connection;
-    }
 }

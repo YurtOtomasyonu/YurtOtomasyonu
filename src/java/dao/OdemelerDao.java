@@ -12,16 +12,15 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class OdemelerDao {
+public class OdemelerDao  extends BaseDao{
 
-    private DBConnection db;
-    private Connection c;
+ 
 
     public List<Odemeler> findAll() {
         List<Odemeler> odemelerList = new ArrayList<>();
         //Connector connector = new Connector();
         try {
-            PreparedStatement pst = this.getC().prepareStatement("select * from odemeler");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from odemeler");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Odemeler tmp = new Odemeler(rs.getLong("odeme_id"), rs.getString("ogrenciAdi"),rs.getInt("ucret"));
@@ -36,7 +35,7 @@ public class OdemelerDao {
     public Odemeler find(Long id){
         Odemeler bb = null;
         try{
-            PreparedStatement st = this.getC().prepareStatement("select * from odemeler where odeme_id=?");
+            PreparedStatement st = this.getConnection().prepareStatement("select * from odemeler where odeme_id=?");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -56,7 +55,7 @@ public class OdemelerDao {
 
     public void insert(Odemeler odemeler) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("insert into odemeler (ogrenciAdi,ucret) values (?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into odemeler (ogrenciAdi,ucret) values (?,?)");
             pst.setString(1, odemeler.getOgrenciAdi());
             pst.setInt(2, odemeler.getUcret());
             
@@ -69,7 +68,7 @@ public class OdemelerDao {
 
     public void delete(Odemeler odemeler) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("delete from odemeler where odeme_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from odemeler where odeme_id=?");
             pst.setLong(1, odemeler.getOdeme_id());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -81,7 +80,7 @@ public class OdemelerDao {
     public void update(Odemeler odemeler) {
 
         try {
-            PreparedStatement pst = this.getC().prepareStatement("update odemeler set ogrenciAdi=?, ucret=? where odeme_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update odemeler set ogrenciAdi=?, ucret=? where odeme_id=?");
             pst.setString(1, odemeler.getOgrenciAdi());
             pst.setInt(2, odemeler.getUcret());
             pst.setLong(3, odemeler.getOdeme_id());
@@ -93,18 +92,6 @@ public class OdemelerDao {
         }
     }
 
-    public DBConnection getDb() {
-        if (this.db == null) {
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 
 }

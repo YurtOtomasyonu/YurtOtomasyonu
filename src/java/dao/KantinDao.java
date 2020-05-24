@@ -11,10 +11,9 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class KantinDao {
+public class KantinDao extends BaseDao {
     
-    private DBConnection db;
-    private Connection c;
+   
     
     private KantinturDao kantinturDao;
     
@@ -22,7 +21,7 @@ public class KantinDao {
         List<Kantin> kantinList = new ArrayList<>();
         
         try{
-            PreparedStatement pst = this.getC().prepareStatement("select * from kantin");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from kantin");
             ResultSet rs = pst.executeQuery();
             
             while(rs.next()){
@@ -42,7 +41,7 @@ public class KantinDao {
     }
      public void remove(Kantin kantin) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("delete from kantin where malzeme_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from kantin where malzeme_id=?");
             pst.setLong(1, kantin.getMalzeme_id());
             pst.executeUpdate();
             
@@ -54,7 +53,7 @@ public class KantinDao {
     
     public void create(Kantin kantin) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("insert into kantin (isim,tur_id) values (?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into kantin (isim,tur_id) values (?,?)");
             pst.setString(1, kantin.getIsim());
             pst.setLong(2, kantin.getKantintur().getTur_id());
             
@@ -67,7 +66,7 @@ public class KantinDao {
     }
     public void edit(Kantin kantin) {
         try{
-            PreparedStatement pst = this.getC().prepareStatement("update kantin set isim=?, tur_id=? where malzeme_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update kantin set isim=?, tur_id=? where malzeme_id=?");
             pst.setString(1, kantin.getIsim());
             pst.setLong(2, kantin.getKantintur().getTur_id());
             pst.setLong(3, kantin.getMalzeme_id());
@@ -86,17 +85,5 @@ public class KantinDao {
         return kantinturDao;
     }
     
-    public DBConnection getDb() {
-        if(this.db==null){
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if(this.c==null){
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }

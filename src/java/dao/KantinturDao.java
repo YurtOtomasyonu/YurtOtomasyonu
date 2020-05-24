@@ -13,15 +13,14 @@ import java.util.logging.Logger;
 import util.DBConnection;
 
 
-public class KantinturDao {
+public class KantinturDao  extends BaseDao{
 
-    private DBConnection db;
-    private Connection c;
+ 
 
     public List<Kantintur> findAll() {
         List<Kantintur> kantinturList = new ArrayList<>();
         try {
-            PreparedStatement pst = this.getC().prepareStatement("select * from kantin_tur");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from kantin_tur");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -41,7 +40,7 @@ public class KantinturDao {
     public Kantintur find(Long id) {
         Kantintur pt = null;
         try {
-            PreparedStatement st = this.getC().prepareStatement("select * from kantin_tur where tur_id=?");
+            PreparedStatement st = this.getConnection().prepareStatement("select * from kantin_tur where tur_id=?");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -57,17 +56,5 @@ public class KantinturDao {
         return pt;
     }
 
-    public DBConnection getDb() {
-        if (this.db == null) {
-            this.db = new DBConnection();
-        }
-        return db;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
+    
 }

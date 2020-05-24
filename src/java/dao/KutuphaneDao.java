@@ -13,10 +13,9 @@ import java.util.List;
 import util.DBConnection;
 
 
-public class KutuphaneDao {
+public class KutuphaneDao extends BaseDao {
 
-    private DBConnection connector;
-    private Connection connection;
+
     //instans dao 
     private LanguageDao languageDao;
     //instanse list many to many
@@ -144,20 +143,7 @@ public class KutuphaneDao {
         this.languageDao = languageDao;
     }
 
-    public DBConnection getConnector() {
-        if (this.connector == null) {
-            this.connector = new DBConnection();
-        }
-
-        return connector;
-    }
-
-    public Connection getConnection() {
-        if (this.connection == null) {
-            this.connection = this.getConnector().connect();
-        }
-        return connection;
-    }
+   
 
     public CategoryDao getCategoryDao() {
         if (this.categoryDao == null) {

@@ -12,16 +12,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DBConnection;
 
-public class BinaDao {
+public class BinaDao extends BaseDao {
 
-    private DBConnection db;
-    private Connection c;
+   
 
     public List<Bina> findAll() {
         List<Bina> binaList = new ArrayList<>();
         //Connector connector = new Connector();
         try {
-            PreparedStatement pst = this.getC().prepareStatement("select * from bina");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from bina");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Bina tmp = new Bina(rs.getLong("bina_id"), rs.getString("oda_sayisi"),rs.getString("adres"));
@@ -36,7 +35,7 @@ public class BinaDao {
     public Bina find(Long id){
         Bina bb = null;
         try{
-            PreparedStatement st = this.getC().prepareStatement("select * from bina where bina_id=?");
+            PreparedStatement st = this.getConnection().prepareStatement("select * from bina where bina_id=?");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -56,7 +55,7 @@ public class BinaDao {
 
     public void insert(Bina bina) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("insert into bina (oda_sayisi,adres) values (?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into bina (oda_sayisi,adres) values (?,?)");
             pst.setString(1, bina.getOda_sayisi());
             pst.setString(2, bina.getAdres());
             
@@ -69,7 +68,7 @@ public class BinaDao {
 
     public void delete(Bina bina) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("delete from bina where bina_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from bina where bina_id=?");
             pst.setLong(1, bina.getBina_id());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -81,7 +80,7 @@ public class BinaDao {
     public void update(Bina bina) {
 
         try {
-            PreparedStatement pst = this.getC().prepareStatement("update bina set oda_sayisi=?, adres=? where bina_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update bina set oda_sayisi=?, adres=? where bina_id=?");
             pst.setString(1, bina.getOda_sayisi());
             pst.setString(2, bina.getAdres());
             pst.setLong(3, bina.getBina_id());
@@ -93,18 +92,6 @@ public class BinaDao {
         }
     }
 
-    public DBConnection getDb() {
-        if (this.db == null) {
-            this.db = new DBConnection();
-        }
-        return db;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
+   
 
 }

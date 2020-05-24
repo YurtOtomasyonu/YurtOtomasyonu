@@ -17,17 +17,16 @@ import java.util.logging.Level;
 import util.DBConnection;
 
 
-public class duyuruDao {
+public class duyuruDao extends BaseDao {
 
-    private DBConnection db;
-    private Connection c;
+   
 
     private turdao turdao;
 
     public List<duyuru> findAll() {
         List<duyuru> dList = new ArrayList();
         try {
-            PreparedStatement pst = this.getC().prepareStatement("select * from duyurular");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from duyurular");
             ResultSet rs = pst.executeQuery();
             
             while (rs.next()) {
@@ -48,7 +47,7 @@ public class duyuruDao {
 
     public void create(duyuru dyr) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("insert into duyurular(bilgi,duyurlar_turu) values(?,?)");
+            PreparedStatement pst = this.getConnection().prepareStatement("insert into duyurular(bilgi,duyurlar_turu) values(?,?)");
             pst.setString(1, dyr.getBilgi());
             pst.setLong(2, dyr.getDuyurlar_turu().getTur_id());
 
@@ -61,7 +60,7 @@ public class duyuruDao {
 
     public void edit(duyuru dyr) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("update duyurular set bilgi=?,duyurlar_turu=? where duyuru_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("update duyurular set bilgi=?,duyurlar_turu=? where duyuru_id=?");
             
             pst.setLong(3, dyr.getDuyuru_id());
             pst.setString(1, dyr.getBilgi());
@@ -75,7 +74,7 @@ public class duyuruDao {
 
     public void remove(duyuru dyr) {
         try {
-            PreparedStatement pst = this.getC().prepareStatement("delete from duyurular where duyuru_id=?");
+            PreparedStatement pst = this.getConnection().prepareStatement("delete from duyurular where duyuru_id=?");
             pst.setLong(1, dyr.getDuyuru_id());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -89,17 +88,5 @@ public class duyuruDao {
         }
         return turdao;
     }
-   public DBConnection getDb() {
-        if(this.db==null){
-            this.db = new DBConnection();
-        }
-        return db;
-    }
 
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = this.getDb().connect();
-        }
-        return c;
-    }
 }
