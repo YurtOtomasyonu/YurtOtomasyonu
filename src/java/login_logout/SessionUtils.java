@@ -19,7 +19,7 @@ public class SessionUtils {
     public static String getUserName() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
-        return session.getAttribute("username").toString();
+        return session.getAttribute("uname").toString();
     }
 
     public static String userTuru() {
@@ -31,18 +31,11 @@ public class SessionUtils {
     public static String getUserId() {
         HttpSession session = getSession();
         if (session != null) {
-            return (String) session.getAttribute("userid");
+            return (String) session.getAttribute("id");
         } else {
             return null;
         }
     }
-    public static boolean getC() {
-        HttpSession session = getSession();
-        if (session != null) {
-            return (Boolean) session.getAttribute("C");
-        } else {
-            return false;
-        }
-    }
+  
 
 }

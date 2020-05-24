@@ -1,6 +1,7 @@
 package dao;
 
 import entity.User;
+import java.io.Serializable;
 import login_logout.DBCon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import login_logout.DBCon;
 
-public class UsersDAO {
+public class UsersDAO implements Serializable {
 
     public User validate(String user) {
         Connection con;
