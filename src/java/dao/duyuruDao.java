@@ -16,24 +16,39 @@ import java.util.List;
 import java.util.logging.Level;
 import util.DBConnection;
 
-
 public class duyuruDao extends BaseDao {
-
-   
 
     private turdao turdao;
 
-    public List<duyuru> findAll() {
+    public List<duyuru> findAll(int page, int pageSize, String searchTerm) {
         List<duyuru> dList = new ArrayList();
+        int start = (page - 1) * pageSize;
         try {
-            PreparedStatement pst = this.getConnection().prepareStatement("select * from duyurular");
-            ResultSet rs = pst.executeQuery();
-            
+
+            String query = "select * from duyurular";
+
+            if (searchTerm != null) {
+                query += " where bilgi like ? ";
+            }
+
+            query += " order by duyuru_id asc limit ? offset ?";
+            PreparedStatement st = this.getConnection().prepareStatement(query);
+
+            if (searchTerm != null) {
+
+                st.setString(1, "%" + searchTerm + "%");
+                st.setInt(2, pageSize);
+                st.setInt(3, (page - 1) * pageSize);
+            } else {
+                st.setInt(1, pageSize);
+                st.setInt(2, (page - 1) * pageSize);
+            }
+            ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 duyuru tmp = new duyuru();
                 tmp.setDuyuru_id(rs.getLong("duyuru_id"));
                 tmp.setBilgi(rs.getString("bilgi"));
-
 
                 rs.getInt("duyurlar_turu");
                 tmp.setDuyurlar_turu(this.getTurdao().find(rs.getLong("duyurlar_turu")));
@@ -43,6 +58,32 @@ public class duyuruDao extends BaseDao {
             System.out.println(ex.getMessage());
         }
         return dList;
+    }
+
+    public int count(String searchTerm) {
+        int count = 0;
+
+        try {
+
+            String query = "select count(duyuru_id) as aa from duyurular";
+            if (searchTerm != null) {
+                query += " where bilgi like ? ";
+            }
+            PreparedStatement st = this.getConnection().prepareStatement(query);
+
+            if (searchTerm != null) {
+                st.setString(1, "%" + searchTerm + "%");
+            }
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+            count = rs.getInt("aa");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return count;
     }
 
     public void create(duyuru dyr) {
@@ -61,7 +102,7 @@ public class duyuruDao extends BaseDao {
     public void edit(duyuru dyr) {
         try {
             PreparedStatement pst = this.getConnection().prepareStatement("update duyurular set bilgi=?,duyurlar_turu=? where duyuru_id=?");
-            
+
             pst.setLong(3, dyr.getDuyuru_id());
             pst.setString(1, dyr.getBilgi());
             pst.setLong(2, dyr.getDuyurlar_turu().getTur_id());

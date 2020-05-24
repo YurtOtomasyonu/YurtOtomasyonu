@@ -5,6 +5,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="duyuru-table">
+        <pre> Page #{duyuruController.page} of #{duyuruController.pageCount} </pre>
+        <div class="btn-group">
+            <h:commandButton action="#{duyuruController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+            <h:commandButton action="#{duyuruController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+        </div>
+        <div>
+            Arama <h:inputText value="#{duyuruController.searchTerm}" />
+            <h:commandButton action="#{duyuruController.search()}" value="Search" />
+            <h:commandButton rendered="#{duyuruController.searchTerm!=null}" action="#{duyuruController.clearSearch()}" value="Clear Search" />
+        </div>
         <h:dataTable styleClass="table table-striped table-hover" value="#{duyuruController.dlist}" var="duyuru">
             <h:column>
                 <f:facet name="header">ID</f:facet>

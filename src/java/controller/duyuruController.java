@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class duyuruController implements Serializable {
+public class duyuruController extends BaseBean implements Serializable {
 
     private duyuru dyr;
     private List<duyuru> dList;
@@ -58,7 +58,7 @@ public class duyuruController implements Serializable {
     }
 
     public List<duyuru> getDlist() {
-        this.dList = this.getDDao().findAll();
+        this.dList = this.getDDao().findAll(page, pageSize ,  this.getSearchTerm());
         return dList;
     }
 
@@ -91,6 +91,12 @@ public class duyuruController implements Serializable {
 
     public void setTurList(List<duyurlar_turu> turList) {
         this.turList = turList;
+    }
+    
+      @Override
+   public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getDDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
     }
 
 }

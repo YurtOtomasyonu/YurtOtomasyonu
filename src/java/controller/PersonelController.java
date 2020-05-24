@@ -13,58 +13,64 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
-
 @Named
 @SessionScoped
-public class PersonelController implements Serializable {
-    
+public class PersonelController extends BaseBean implements Serializable {
+
     private Personel personel;
     private List<Personel> personelList;
     private PersonelDao personelDao;
-    
+
     private List<Personeltur> personelturList;
     private PersonelturDao personelturDao;
-    
-     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException{
+
+    @Override
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getPersonelDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
+
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String str = value.toString();
-        if(str.length()<3){
+        if (str.length() < 3) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En az 8 hane giriniz"));
         }
-        if(str.length()>20){
+        if (str.length() > 20) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "summary", "En fazla 20 hane girilebilir"));
         }
     }
-    
-    public void delete(){
+
+    public void delete() {
         this.getPersonelDao().remove(this.personel);
         this.clearForm();
     }
+
     public void deleteConfirm(Personel personel) {
         this.personel = personel;
     }
-    
+
     public void clearForm() {
         this.personel = new Personel();
-        
+
     }
-    
-    public void updateForm(Personel p){
-        this.personel=p;
-        
+
+    public void updateForm(Personel p) {
+        this.personel = p;
+
     }
-    
-    public void update(){
+
+    public void update() {
         this.getPersonelDao().edit(this.personel);
         this.clearForm();
     }
-    
-    public void create(){
+
+    public void create() {
         this.getPersonelDao().create(this.personel);
         this.clearForm();
     }
 
     public Personel getPersonel() {
-        if(this.personel==null){
+        if (this.personel == null) {
             this.personel = new Personel();
         }
         return personel;
@@ -75,7 +81,7 @@ public class PersonelController implements Serializable {
     }
 
     public List<Personel> getPersonelList() {
-        this.personelList=this.getPersonelDao().findAll();
+        this.personelList = this.getPersonelDao().findAll(page, pageSize, this.getSearchTerm());
         return personelList;
     }
 
@@ -84,7 +90,7 @@ public class PersonelController implements Serializable {
     }
 
     public PersonelDao getPersonelDao() {
-        if(this.personelDao == null){
+        if (this.personelDao == null) {
             this.personelDao = new PersonelDao();
         }
         return personelDao;
@@ -95,7 +101,7 @@ public class PersonelController implements Serializable {
     }
 
     public PersonelturDao getPersonelturDao() {
-        if(this.personelturDao == null){
+        if (this.personelturDao == null) {
             this.personelturDao = new PersonelturDao();
         }
         return personelturDao;
@@ -109,5 +115,5 @@ public class PersonelController implements Serializable {
     public void setPersonelturList(List<Personeltur> personelturList) {
         this.personelturList = personelturList;
     }
-    
+
 }
