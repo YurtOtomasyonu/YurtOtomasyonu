@@ -14,7 +14,13 @@ import javax.inject.Inject;
 
 @Named
 @SessionScoped
-public class KutuphaneController implements Serializable {
+public class KutuphaneController extends BaseBean implements Serializable {
+    
+     @Override
+   public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getKutuphanedao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
 
     private Kutuphane kutuphane;  //nesne
     private List<Kutuphane> kutuphaneList;
@@ -70,7 +76,7 @@ public class KutuphaneController implements Serializable {
     }
 
     public List<Kutuphane> getKutuphaneList() {
-       this.kutuphaneList= this.getKutuphanedao().findAll();
+       this.kutuphaneList= this.getKutuphanedao().findAll(page, pageSize ,  this.getSearchTerm());
         return kutuphaneList;
     }
 

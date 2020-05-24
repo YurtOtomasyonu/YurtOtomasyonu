@@ -5,6 +5,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="category-table">
+         <pre> Page #{categoryController.page} of #{categoryController.pageCount} </pre>
+        <div class="btn-group">
+            <h:commandButton action="#{categoryController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+            <h:commandButton action="#{categoryController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+        </div>
+        <div>
+            Search (Name Column ) <h:inputText value="#{categoryController.searchTerm}" />
+			<h:commandButton action="#{categoryController.search()}" value="Search" />
+			<h:commandButton rendered="#{categoryController.searchTerm!=null}" action="#{categoryController.clearSearch()}" value="Clear Search" />
+        </div>
         <h:dataTable  class="table table-danger " value="#{categoryController.categoryList}" var="category" >
             <h:column>
                 <f:facet name="header">CATEGORY</f:facet>

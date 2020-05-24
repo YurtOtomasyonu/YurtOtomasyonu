@@ -103,14 +103,31 @@ public class KutuphaneDao extends BaseDao {
         }
     }
 
-    public List<Kutuphane> findAll() {
+    public List<Kutuphane> findAll(int page , int pageSize , String searchTerm) {
         List<Kutuphane> kutuphaneList = new ArrayList<>();
 
+         int start = (page-1)* pageSize ;
         try {
-            PreparedStatement pst = this.getConnection().prepareStatement("select * from kutuphane");
-            // Statement st = this.getConnection().createStatement();
-            // ResultSet rs = st.executeQuery("select * from kutuphane");
-            ResultSet rs = pst.executeQuery();
+           
+            String query = "select * from kutuphane";
+
+			if (searchTerm != null) {
+				query += " where kitab_adi like ? ";
+			}
+
+			query += " order by kitab_id asc limit ? offset ?";
+			PreparedStatement st = this.getConnection().prepareStatement(query);
+
+			if (searchTerm != null) {
+				
+				st.setString(1, "%"+searchTerm+"%");
+				st.setInt(2, pageSize);
+				st.setInt(3, (page - 1) * pageSize);
+			} else {
+				st.setInt(1, pageSize);
+				st.setInt(2, (page - 1) * pageSize);
+			}
+			ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 Kutuphane tmp = new Kutuphane();
@@ -150,6 +167,40 @@ public class KutuphaneDao extends BaseDao {
             this.categoryDao = new CategoryDao();
         }
         return categoryDao;
+    }
+    
+        public int count (String searchTerm) {
+            int count = 0 ;
+        
+        try {
+            /*PreparedStatement pst = this.getConnection().prepareStatement("select count(kitab_id) as kitab_count from kutuphane ");
+           
+            ResultSet rs = pst.executeQuery();
+            rs.next() ;
+            count = rs.getInt("kitab_count") ;*/
+            
+             String query = "select count(kitab_id) as aa from kutuphane";
+			if (searchTerm != null) {
+				query += " where kitab_adi like ? ";
+			}
+			PreparedStatement st = this.getConnection().prepareStatement(query);
+			
+			if (searchTerm != null) {
+				st.setString(1, "%"+searchTerm+"%");
+			}
+			ResultSet rs = st.executeQuery();
+
+			rs.next();
+			count = rs.getInt("aa");
+         
+          
+
+           
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return count ;
     }
 
 }

@@ -14,7 +14,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 
-public class CategoryController implements Serializable {
+public class CategoryController extends BaseBean implements Serializable {
 
     private List<Category> categoryList;
     private CategoryDao categoryDao;
@@ -53,7 +53,7 @@ public class CategoryController implements Serializable {
     }
 
     public List<Category> getCategoryList() {
-        this.categoryList = this.getCategoryDao().findAll();
+        this.categoryList = this.getCategoryDao().findAll(page, pageSize, this.getSearchTerm());
         return categoryList;
     }
 
@@ -81,6 +81,12 @@ public class CategoryController implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    
+     @Override
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getCategoryDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
     }
 
 }

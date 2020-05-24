@@ -1,4 +1,3 @@
-
 package dao;
 
 import entity.Category;
@@ -13,16 +12,32 @@ import util.DBConnection;
 
 public class CategoryDao extends BaseDao {
 
-  
-
-
-    public List<Category> findAll() {
+    public List<Category> findAll(int page, int pageSize, String searchTerm) {
 
         List<Category> categorylist = new ArrayList();
 
+        int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConnection().createStatement();
-            ResultSet rs = st.executeQuery("select * from category");
+
+            String query = "select * from category";
+
+            if (searchTerm != null) {
+                query += " where name like ? ";
+            }
+
+            query += " order by category_id asc limit ? offset ?";
+            PreparedStatement st = this.getConnection().prepareStatement(query);
+
+            if (searchTerm != null) {
+
+                st.setString(1, "%" + searchTerm + "%");
+                st.setInt(2, pageSize);
+                st.setInt(3, (page - 1) * pageSize);
+            } else {
+                st.setInt(1, pageSize);
+                st.setInt(2, (page - 1) * pageSize);
+            }
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Category t = new Category();
                 t.setCategory_id(rs.getLong("category_id"));
@@ -57,7 +72,7 @@ public class CategoryDao extends BaseDao {
             pst.setLong(1, cat.getCategory_id());
             pst.executeUpdate();*/
             PreparedStatement pst = this.getConnection().prepareStatement("delete from category where category_id=?");
-            pst.setLong(1,cat.getCategory_id() );
+            pst.setLong(1, cat.getCategory_id());
             pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -115,9 +130,7 @@ public class CategoryDao extends BaseDao {
 
     }
 
-
 //15
-
     public List<Category> getKutuphaneCategories(long kitab_id) {
         List<Category> kutuphaneCategories = new ArrayList<>();
 
@@ -136,4 +149,33 @@ public class CategoryDao extends BaseDao {
         return kutuphaneCategories;
     }
 
+    public int count(String searchTerm) {
+        int count = 0;
+
+        try {
+            /*   PreparedStatement pst = this.getConnection().prepareStatement("select count(category_id) as cat_count from category ");
+           
+            ResultSet rs = pst.executeQuery();
+            rs.next() ;
+            count = rs.getInt("cat_count") ;*/
+            String query = "select count(category_id) as aa from category";
+            if (searchTerm != null) {
+                query += " where name like ? ";
+            }
+            PreparedStatement st = this.getConnection().prepareStatement(query);
+
+            if (searchTerm != null) {
+                st.setString(1, "%" + searchTerm + "%");
+            }
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+            count = rs.getInt("aa");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return count;
+    }
 }
