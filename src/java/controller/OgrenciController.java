@@ -1,5 +1,6 @@
 package controller;
 
+import static controller.BaseBean.pageSize;
 import dao.OdalarDao;
 import dao.OgrenciDao;
 import entity.Bina;
@@ -17,7 +18,7 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class OgrenciController implements Serializable {
+public class OgrenciController extends BaseBean implements Serializable {
     
     private Ogrenci ogrenci;
     private List<Ogrenci> ogrenciList;
@@ -27,7 +28,11 @@ public class OgrenciController implements Serializable {
     private OdalarDao odalarDao;
     private OdalarController odalarController;
     
-   
+    @Override
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getOgrenciDao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
 
     public OdalarController getOdalarController() {
         if(this.odalarController == null){
@@ -81,7 +86,7 @@ public class OgrenciController implements Serializable {
     }
 
     public List<Ogrenci> getOgrenciList() {
-        this.ogrenciList=this.getOgrenciDao().findAll();
+        this.ogrenciList=this.getOgrenciDao().findAll(page, pageSize ,  this.getSearchTerm());
         return ogrenciList;
     }
 
@@ -108,7 +113,7 @@ public class OgrenciController implements Serializable {
     }
 
     public List<Odalar> getOdalarList() {
-        this.odalarList = this.getOdalarDao().findAll();
+        this.odalarList = this.getOdalarDao().findAll(page, pageSize );
         return odalarList;
     }
 

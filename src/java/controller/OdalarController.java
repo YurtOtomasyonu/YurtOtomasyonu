@@ -24,7 +24,47 @@ public class OdalarController implements Serializable {
     
     private List<Bina> binaList;
     private BinaDao binaDao;
+     private int page=1;
+    private int pageSize=5;
+    private int pageCount;
     
+    public void next(){
+        if(this.page==this.getPageCount())
+            this.page=1;
+        else
+            this.page++;
+    }
+    public void previous(){
+        if(this.page==1)
+            this.page=this.getPageCount();
+        else
+            this.page--;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount =(int) Math.ceil(this.getOdalarDao().count()/(double)pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
    
       public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException{
         String str = value.toString();
@@ -75,7 +115,7 @@ public class OdalarController implements Serializable {
     }
 
     public List<Odalar> getOdalarList() {
-        this.odalarList=this.getOdalarDao().findAll();
+        this.odalarList=this.getOdalarDao().findAll(page,pageSize);
         return odalarList;
     }
 
@@ -102,7 +142,7 @@ public class OdalarController implements Serializable {
     }
 
     public List<Bina> getBinaList() {
-        this.binaList = this.getBinaDao().findAll();
+        this.binaList = this.getBinaDao().findAll(page, pageSize);
         return binaList;
     }
 

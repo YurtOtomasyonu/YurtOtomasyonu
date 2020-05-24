@@ -16,11 +16,12 @@ public class BinaDao extends BaseDao {
 
    
 
-    public List<Bina> findAll() {
+    public List<Bina> findAll(int page, int pageSize) {
         List<Bina> binaList = new ArrayList<>();
         //Connector connector = new Connector();
+       int start = (page - 1) * pageSize;
         try {
-            PreparedStatement pst = this.getConnection().prepareStatement("select * from bina");
+            PreparedStatement pst = this.getConnection().prepareStatement("select * from bina order by bina_id asc limit " + start + "," + pageSize);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Bina tmp = new Bina(rs.getLong("bina_id"), rs.getString("oda_sayisi"),rs.getString("adres"));
@@ -32,6 +33,23 @@ public class BinaDao extends BaseDao {
         }
         return binaList;
     }
+    
+     public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement pst = this.getConnection().prepareStatement("select count(bina_id) as bina_count from bina");
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("bina_count");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+    }
+     
+     
     public Bina find(Long id){
         Bina bb = null;
         try{
