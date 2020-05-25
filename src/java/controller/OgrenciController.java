@@ -3,16 +3,11 @@ package controller;
 import static controller.BaseBean.pageSize;
 import dao.OdalarDao;
 import dao.OgrenciDao;
-import entity.Bina;
 import entity.Odalar;
 import entity.Ogrenci;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 

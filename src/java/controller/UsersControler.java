@@ -4,36 +4,28 @@ import java.io.Serializable;
 import javax.inject.Named;
 import dao.UsersDAO;
 
-
 @Named
 @javax.enterprise.context.SessionScoped
 
 public class UsersControler implements Serializable {
 
-   // private static final long serialVersionUID = 1094801825228386363L;
-
     private String msg;
     private String uname;
     private String password;
     private String userTuru;
-    
-    
 
     public String create() {
         UsersDAO.insert(this.uname, this.password, this.userTuru);
         this.uname = null;
         this.password = null;
-        
+
         return "login";
     }
 
     public UsersControler() {
-       // UsersControler u = new UsersControler();
-         // this.clist =new ArrayList();
-       // UsersDAO = new UsersDAO();
         this.uname = "";
         this.password = "";
-       
+
     }
 
     public UsersControler(String msg, String uname, String password, String userTuru) {
@@ -75,5 +67,4 @@ public class UsersControler implements Serializable {
         this.userTuru = userTuru;
     }
 
- 
 }

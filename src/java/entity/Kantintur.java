@@ -1,12 +1,11 @@
-
 package entity;
 
 import java.util.Objects;
 
-
 public class Kantintur {
+
     private Long tur_id;
-    private String tur_isim;  
+    private String tur_isim;
 
     public Kantintur(Long tur_id, String tur_isim) {
         this.tur_id = tur_id;
@@ -61,7 +60,5 @@ public class Kantintur {
         }
         return true;
     }
-     
-    
-    
+
 }

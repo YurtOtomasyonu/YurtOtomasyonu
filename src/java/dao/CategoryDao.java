@@ -1,14 +1,12 @@
 package dao;
 
 import entity.Category;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
 
 public class CategoryDao extends BaseDao {
 
@@ -66,11 +64,6 @@ public class CategoryDao extends BaseDao {
     public void remove(Category cat) {
 
         try {
-            /*Statement st = this.getConnection().createStatement();
-            st.executeUpdate("delete from category where category_id ="+cat.getCategory_id());*/
- /*  PreparedStatement pst = this.getConnection().prepareStatement("delete from category where category_id=?");
-            pst.setLong(1, cat.getCategory_id());
-            pst.executeUpdate();*/
             PreparedStatement pst = this.getConnection().prepareStatement("delete from category where category_id=?");
             pst.setLong(1, cat.getCategory_id());
             pst.executeUpdate();
@@ -96,7 +89,6 @@ public class CategoryDao extends BaseDao {
         try {
             Statement st = this.getConnection().createStatement();
             ResultSet rs = st.executeQuery("select * from kutup_category where kitab_id=" + kitab_id);
-            // n tane sonuc donme ihtmali oldugu icin 
 
             while (rs.next()) {
                 kutupCategories.add(this.find(rs.getLong("category_id")));
@@ -153,11 +145,7 @@ public class CategoryDao extends BaseDao {
         int count = 0;
 
         try {
-            /*   PreparedStatement pst = this.getConnection().prepareStatement("select count(category_id) as cat_count from category ");
-           
-            ResultSet rs = pst.executeQuery();
-            rs.next() ;
-            count = rs.getInt("cat_count") ;*/
+
             String query = "select count(category_id) as aa from category";
             if (searchTerm != null) {
                 query += " where name like ? ";

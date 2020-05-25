@@ -1,4 +1,3 @@
-
 package util;
 
 import java.io.Serializable;
@@ -7,10 +6,10 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class NavigationNkBean implements Serializable{
-    
-    public String page(String p){
-        
-        return "/Users/module/"+p+"/"+p+"?faces-redirect=true" ;
+public class NavigationNkBean implements Serializable {
+
+    public String page(String p) {
+
+        return "/Users/module/" + p + "/" + p + "?faces-redirect=true";
     }
 }

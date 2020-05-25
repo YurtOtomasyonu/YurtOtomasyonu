@@ -2,14 +2,13 @@
 package dao;
 
 import entity.Language;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
+
 
 public class LanguageDao extends BaseDao {
 
@@ -39,10 +38,7 @@ public class LanguageDao extends BaseDao {
     public Language find(Long id) {
         Language l = null;
         try {
-            //kontrol eder degerler icin
              PreparedStatement pst = this.getConnection().prepareStatement("select * from language where language_id=?");
-            //Statement st = this.getConnection().createStatement();
-           // ResultSet rs = pst.executeQuery("select * from language where language_id="+id);
             pst.setLong(1, id);
             ResultSet rs = pst.executeQuery();
             

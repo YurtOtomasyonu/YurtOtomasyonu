@@ -1,4 +1,3 @@
-
 package converter;
 
 import dao.turdao;
@@ -8,9 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value="duyuruConverter")
-public class TurConverter implements Converter{
-    
+@FacesConverter(value = "duyuruConverter")
+public class TurConverter implements Converter {
+
     private turdao turdao;
 
     @Override
@@ -20,14 +19,15 @@ public class TurConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object arg2) {
-        duyurlar_turu d=(duyurlar_turu) arg2;
+        duyurlar_turu d = (duyurlar_turu) arg2;
         return d.getTur_id().toString();
     }
 
     public turdao getTurdao() {
-        if(this.turdao==null)
-            this.turdao=new turdao();
+        if (this.turdao == null) {
+            this.turdao = new turdao();
+        }
         return turdao;
     }
-    
+
 }

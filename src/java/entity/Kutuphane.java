@@ -1,8 +1,6 @@
-
 package entity;
 
 import java.util.List;
-
 
 public class Kutuphane {
 
@@ -10,15 +8,11 @@ public class Kutuphane {
     private String kitab_adi;
     private String description;
     private int year;
-    
-    
-    
-    private Language language ;
-    
-    private List<Category> kutuphaneCategories ;
-    
-    
-    
+
+    private Language language;
+
+    private List<Category> kutuphaneCategories;
+
     public long getKitab_id() {
         return kitab_id;
     }
@@ -52,7 +46,7 @@ public class Kutuphane {
     }
 
     public Language getLanguage() {
-      
+
         return language;
     }
 
@@ -68,7 +62,4 @@ public class Kutuphane {
         this.kutuphaneCategories = kutuphaneCategories;
     }
 
-    
-
-   
 }

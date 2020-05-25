@@ -1,16 +1,11 @@
 package dao;
 
 import entity.Personel;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import util.DBConnection;
 
 public class PersonelDao extends BaseDao {
 
@@ -22,8 +17,7 @@ public class PersonelDao extends BaseDao {
         int start = (page - 1) * pageSize;
 
         try {
-            /*  PreparedStatement pst = this.getC().prepareStatement("select * from personel order by personel_id asc limit "+start+","+pageSize);
-            ResultSet rs = pst.executeQuery();*/
+
             String query = "select * from personel";
 
             if (searchTerm != null) {
@@ -66,10 +60,7 @@ public class PersonelDao extends BaseDao {
         int count = 0;
 
         try {
-            /*  PreparedStatement pst = this.getC().prepareStatement("select count(personel_id) as personel_count from personel");
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            count=rs.getInt("personel_count");*/
+
             String query = "select count(personel_id) as aa from personel";
             if (searchTerm != null) {
                 query += " where isim like ? ";

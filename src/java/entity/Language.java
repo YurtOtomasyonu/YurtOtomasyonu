@@ -1,16 +1,14 @@
-
 package entity;
 
 import java.util.Objects;
 
-
 public class Language {
-    private Long language_id ;
-    private String name ;
+
+    private Long language_id;
+    private String name;
 
     public Long getLanguage_id() {
-        
-        
+
         return language_id;
     }
 
@@ -50,5 +48,5 @@ public class Language {
         }
         return true;
     }
-    
+
 }

@@ -1,6 +1,4 @@
-
 package converter;
-
 
 import dao.OdalarDao;
 import entity.Odalar;
@@ -9,10 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+@FacesConverter(value = "odalarConverter")
+public class OdalarConverter implements Converter {
 
-@FacesConverter(value="odalarConverter")
-public class OdalarConverter implements Converter{
-    
     private OdalarDao odalarDao;
 
     @Override
@@ -23,11 +20,11 @@ public class OdalarConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         Odalar od = (Odalar) value;
-        return  od.getOda_id().toString();//bn==null ? null : 
+        return od.getOda_id().toString();//bn==null ? null : 
     }
 
     public OdalarDao getOdalarDao() {
-        if(this.odalarDao == null){
+        if (this.odalarDao == null) {
             this.odalarDao = new OdalarDao();
         }
         return odalarDao;
@@ -36,5 +33,5 @@ public class OdalarConverter implements Converter{
     public void setOdalarDao(OdalarDao odalarDao) {
         this.odalarDao = odalarDao;
     }
-    
+
 }

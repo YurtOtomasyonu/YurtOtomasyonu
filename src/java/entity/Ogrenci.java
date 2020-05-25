@@ -1,13 +1,11 @@
-
 package entity;
 
-
 public class Ogrenci {
-    
+
     private Long ogr_id;
     private String adi;
     private String soyadi;
-    
+
     private Odalar odalar;
 
     public Ogrenci(Long ogr_id, String adi, String soyadi) {

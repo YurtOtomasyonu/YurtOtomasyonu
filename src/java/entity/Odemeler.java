@@ -1,8 +1,7 @@
-
 package entity;
 
-
 public class Odemeler {
+
     private Long odeme_id;
     private String ogrenciAdi;
     private int ucret;
@@ -44,6 +43,5 @@ public class Odemeler {
     public String toString() {
         return "Odemeler{" + "odeme_id=" + odeme_id + ", ogrenciAdi=" + ogrenciAdi + ", ucret=" + ucret + '}';
     }
-   
-    
+
 }

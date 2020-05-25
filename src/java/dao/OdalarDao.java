@@ -1,16 +1,11 @@
 package dao;
 
 import entity.Odalar;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import util.DBConnection;
 
 public class OdalarDao extends BaseDao {
 
@@ -55,7 +50,6 @@ public class OdalarDao extends BaseDao {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //Logger.getLogger(PersonelturDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return bb;

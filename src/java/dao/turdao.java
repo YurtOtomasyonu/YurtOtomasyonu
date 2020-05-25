@@ -1,18 +1,15 @@
 package dao;
 
 import entity.duyurlar_turu;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
+
 
 public class turdao extends BaseDao {
-
-  
 
     public List<duyurlar_turu> findAll() {
         List<duyurlar_turu> dList = new ArrayList<>();

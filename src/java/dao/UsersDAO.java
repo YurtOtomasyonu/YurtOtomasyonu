@@ -2,7 +2,6 @@ package dao;
 
 import entity.User;
 import java.io.Serializable;
-import login_logout.DBCon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,16 +1,11 @@
 package dao;
 
 import entity.Ogrenci;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import util.DBConnection;
 
 public class OgrenciDao extends BaseDao {
 
@@ -49,7 +44,6 @@ public class OgrenciDao extends BaseDao {
                 tmp.setSoyadi(rs.getString("soyadi"));
 
                 tmp.setOdalar(this.getOdalarDao().find(rs.getLong("oda_id")));
-                //tmp.setOdalar(this.getOdalarDao().getBinaDao().find(rs.getLong("bina_id")));
                 ogrenciList.add(tmp);
             }
 

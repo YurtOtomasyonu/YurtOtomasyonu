@@ -1,15 +1,14 @@
-
 package entity;
 
-
 public class Document {
-    private Long id ;
-    
-    private String filePath ;
-    private String fileName ;
-    private String fileType ;
-    
-    private User uset ;
+
+    private Long id;
+
+    private String filePath;
+    private String fileName;
+    private String fileType;
+
+    private User uset;
 
     public User getUset() {
         return uset;
@@ -18,7 +17,6 @@ public class Document {
     public void setUset(User uset) {
         this.uset = uset;
     }
-    
 
     public Long getId() {
         return id;
@@ -51,7 +49,5 @@ public class Document {
     public void setFileType(String fileType) {
         this.fileType = fileType;
     }
-    
-    
-    
+
 }

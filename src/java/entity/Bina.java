@@ -1,10 +1,9 @@
-
 package entity;
 
 import java.util.Objects;
 
-
 public class Bina {
+
     private Long bina_id;
     private String oda_sayisi;
     private String adres;
@@ -17,7 +16,7 @@ public class Bina {
 
     public Bina() {
     }
-    
+
     public Long getBina_id() {
         return bina_id;
     }
@@ -71,5 +70,5 @@ public class Bina {
         }
         return true;
     }
-    
+
 }

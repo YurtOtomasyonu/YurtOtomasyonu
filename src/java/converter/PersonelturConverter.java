@@ -1,4 +1,3 @@
-
 package converter;
 
 import dao.PersonelturDao;
@@ -8,12 +7,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-@FacesConverter(value="personelturConverter")
-public class PersonelturConverter implements Converter{
+@FacesConverter(value = "personelturConverter")
+public class PersonelturConverter implements Converter {
 
     private PersonelturDao personelturDao;
-    
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         return this.getPersonelturDao().find(Long.valueOf(value));
@@ -26,10 +24,10 @@ public class PersonelturConverter implements Converter{
     }
 
     public PersonelturDao getPersonelturDao() {
-        if(this.personelturDao == null){
+        if (this.personelturDao == null) {
             this.personelturDao = new PersonelturDao();
         }
         return personelturDao;
     }
-    
+
 }

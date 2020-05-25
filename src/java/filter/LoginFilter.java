@@ -1,4 +1,3 @@
-
 package filter;
 
 import entity.User;
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.NavigationBean;
-
 
 @WebFilter("/*")
 public class LoginFilter implements Filter, Serializable {
@@ -56,19 +54,12 @@ public class LoginFilter implements Filter, Serializable {
             if (url.contains("register") || url.contains("login")) {
                 if (u.getUturu().equals("Admin")) {
                     res.sendRedirect(req.getContextPath() + "/secret/secret.xhtml");
-                    //Linke bastiktan sonra dogru yonlendirmek için 
-                    /*   if (url.contains("module")) {
-                        chain.doFilter(request, response);
-                    } */
-
                 } else if (u.getUturu().equals("User")) {
                     res.sendRedirect(req.getContextPath() + "/Users/View.xhtml");
 
                 } else {
                     res.sendRedirect(req.getContextPath() + "/login.xhtml");
                 }
-
-                //  res.sendRedirect(req.getContextPath() + "/index.xhtml");
             } else if (url.contains("logout")) {
                 req.getSession().invalidate();
                 res.sendRedirect(req.getContextPath() + "/index.xhtml");

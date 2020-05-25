@@ -7,59 +7,56 @@ import entity.Kantintur;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
 public class KantinController extends BaseBean implements Serializable {
-    
+
     private Kantin kantin;
     private List<Kantin> kantinList;
     private KantinDao kantinDao;
-    
+
     private List<Kantintur> kantinturList;
     private KantinturDao kantinturDao;
-    
+
     @Override
-   public int getPageCount() {
+    public int getPageCount() {
         this.pageCount = (int) Math.ceil(this.getKantinDao().count(this.getSearchTerm()) / (double) pageSize);
         return pageCount;
     }
-    
-    public void delete(){
+
+    public void delete() {
         this.getKantinDao().remove(this.kantin);
         this.clearForm();
     }
+
     public void deleteConfirm(Kantin kantin) {
         this.kantin = kantin;
     }
-    
+
     public void clearForm() {
         this.kantin = new Kantin();
-        
+
     }
-    
-    public void updateForm(Kantin k){
-        this.kantin=k;
-        
+
+    public void updateForm(Kantin k) {
+        this.kantin = k;
+
     }
-    
-    public void update(){
+
+    public void update() {
         this.getKantinDao().edit(this.kantin);
         this.clearForm();
     }
-    
-    public void create(){
+
+    public void create() {
         this.getKantinDao().create(this.kantin);
         this.clearForm();
     }
 
     public Kantin getKantin() {
-        if(this.kantin==null){
+        if (this.kantin == null) {
             this.kantin = new Kantin();
         }
         return kantin;
@@ -70,7 +67,7 @@ public class KantinController extends BaseBean implements Serializable {
     }
 
     public List<Kantin> getKantinList() {
-        this.kantinList=this.getKantinDao().findAll(page, pageSize ,  this.getSearchTerm());
+        this.kantinList = this.getKantinDao().findAll(page, pageSize, this.getSearchTerm());
         return kantinList;
     }
 
@@ -79,7 +76,7 @@ public class KantinController extends BaseBean implements Serializable {
     }
 
     public KantinDao getKantinDao() {
-        if(this.kantinDao == null){
+        if (this.kantinDao == null) {
             this.kantinDao = new KantinDao();
         }
         return kantinDao;
@@ -90,7 +87,7 @@ public class KantinController extends BaseBean implements Serializable {
     }
 
     public KantinturDao getKantinturDao() {
-        if(this.kantinturDao == null){
+        if (this.kantinturDao == null) {
             this.kantinturDao = new KantinturDao();
         }
         return kantinturDao;
@@ -104,5 +101,5 @@ public class KantinController extends BaseBean implements Serializable {
     public void setKantinturList(List<Kantintur> kantinturList) {
         this.kantinturList = kantinturList;
     }
-    
+
 }

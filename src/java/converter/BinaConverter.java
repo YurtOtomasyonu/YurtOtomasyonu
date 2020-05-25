@@ -1,4 +1,3 @@
-
 package converter;
 
 import dao.BinaDao;
@@ -8,10 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+@FacesConverter(value = "binaConverter")
+public class BinaConverter implements Converter {
 
-@FacesConverter(value="binaConverter")
-public class BinaConverter implements Converter{
-    
     private BinaDao binaDao;
 
     @Override
@@ -26,7 +24,7 @@ public class BinaConverter implements Converter{
     }
 
     public BinaDao getBinaDao() {
-        if(this.binaDao == null){
+        if (this.binaDao == null) {
             this.binaDao = new BinaDao();
         }
         return binaDao;

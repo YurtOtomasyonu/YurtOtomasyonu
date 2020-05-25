@@ -1,6 +1,6 @@
 package controller;
 
-import dao.BinaDao;
+
 import dao.OdemelerDao;
 import entity.Odemeler;
 import java.io.Serializable;

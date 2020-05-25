@@ -6,9 +6,9 @@ public class Personel {
     private String isim;
     private String soyad;
     private String tc;
-    
+
     private Personeltur personeltur;
-    
+
     public Personel(Long personel_id, String isim, String soyad, String tc) {
         this.personel_id = personel_id;
         this.isim = isim;
@@ -52,7 +52,6 @@ public class Personel {
         this.tc = tc;
     }
 
-    
     public Personeltur getPersoneltur() {
         return personeltur;
     }
@@ -60,5 +59,5 @@ public class Personel {
     public void setPersoneltur(Personeltur personeltur) {
         this.personeltur = personeltur;
     }
-    
+
 }

@@ -1,20 +1,15 @@
-
 package dao;
 
 import entity.Category;
 import entity.Kutuphane;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
-
 
 public class KutuphaneDao extends BaseDao {
-
 
     //instans dao 
     private LanguageDao languageDao;
@@ -23,9 +18,7 @@ public class KutuphaneDao extends BaseDao {
 
     public void create(Kutuphane kutuphane) {
         try {
-            // Statement st = this.getConnection().createStatement();
             PreparedStatement pst = this.getConnection().prepareStatement("insert into kutuphane (kitab_adi , description , year ,language_id) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            // st.executeUpdate("insert into kutuphane (kitab_adi , description , year,language_id) values ('" + kutuphane.getKitab_adi() + "','" + kutuphane.getDescription() + "', '" + kutuphane.getYear() + "','" + selectedLanguage + "')", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, kutuphane.getKitab_adi());
             pst.setString(2, kutuphane.getDescription());
             pst.setInt(3, kutuphane.getYear());
@@ -39,9 +32,7 @@ public class KutuphaneDao extends BaseDao {
             }
 
             for (Category c : kutuphane.getKutuphaneCategories()) {
-                //Statement st2 = this.getConnection().createStatement();
                 pst = this.getConnection().prepareStatement("insert into kutup_category (kitab_id , category_id) values(?,?)");
-                //st2.executeUpdate("insert into kutup_category (kitab_id , category_id) values (" + kitab_id + "," + l + ")");
                 pst.setLong(1, kitab_id);
                 pst.setLong(2, c.getCategory_id());
                 pst.executeUpdate();
@@ -56,9 +47,7 @@ public class KutuphaneDao extends BaseDao {
     public void edit(Kutuphane kutuphane) {
 
         try {
-            // Statement st = this.getConnection().createStatement();
             PreparedStatement pst = this.getConnection().prepareStatement("update kutuphane set kitab_adi=? , description=? , year=? , language_id=?  values (?,?,?,?) where kitab_id=? ");
-            // st.executeUpdate("insert into kutuphane (kitab_adi , description , year,language_id) values ('" + kutuphane.getKitab_adi() + "','" + kutuphane.getDescription() + "', '" + kutuphane.getYear() + "','" + selectedLanguage + "')", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, kutuphane.getKitab_adi());
             pst.setString(2, kutuphane.getDescription());
             pst.setInt(3, kutuphane.getYear());
@@ -69,13 +58,11 @@ public class KutuphaneDao extends BaseDao {
 
             pst = this.getConnection().prepareStatement("delete from kutup_category where kitab_id=? ");
             pst.setLong(1, kutuphane.getKitab_id());
-            
+
             pst.executeUpdate();
 
             for (Category c : kutuphane.getKutuphaneCategories()) {
-                //Statement st2 = this.getConnection().createStatement();
                 pst = this.getConnection().prepareStatement("insert into kutup_category (kitab_id , category_id) values (?,?) ");
-                //st2.executeUpdate("insert into kutup_category (kitab_id , category_id) values (" + kitab_id + "," + l + ")");
                 pst.setLong(1, kutuphane.getKitab_id());
                 pst.setLong(2, c.getCategory_id());
                 pst.executeUpdate();
@@ -103,31 +90,31 @@ public class KutuphaneDao extends BaseDao {
         }
     }
 
-    public List<Kutuphane> findAll(int page , int pageSize , String searchTerm) {
+    public List<Kutuphane> findAll(int page, int pageSize, String searchTerm) {
         List<Kutuphane> kutuphaneList = new ArrayList<>();
 
-         int start = (page-1)* pageSize ;
+        int start = (page - 1) * pageSize;
         try {
-           
+
             String query = "select * from kutuphane";
 
-			if (searchTerm != null) {
-				query += " where kitab_adi like ? ";
-			}
+            if (searchTerm != null) {
+                query += " where kitab_adi like ? ";
+            }
 
-			query += " order by kitab_id asc limit ? offset ?";
-			PreparedStatement st = this.getConnection().prepareStatement(query);
+            query += " order by kitab_id asc limit ? offset ?";
+            PreparedStatement st = this.getConnection().prepareStatement(query);
 
-			if (searchTerm != null) {
-				
-				st.setString(1, "%"+searchTerm+"%");
-				st.setInt(2, pageSize);
-				st.setInt(3, (page - 1) * pageSize);
-			} else {
-				st.setInt(1, pageSize);
-				st.setInt(2, (page - 1) * pageSize);
-			}
-			ResultSet rs = st.executeQuery();
+            if (searchTerm != null) {
+
+                st.setString(1, "%" + searchTerm + "%");
+                st.setInt(2, pageSize);
+                st.setInt(3, (page - 1) * pageSize);
+            } else {
+                st.setInt(1, pageSize);
+                st.setInt(2, (page - 1) * pageSize);
+            }
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 Kutuphane tmp = new Kutuphane();
@@ -160,47 +147,36 @@ public class KutuphaneDao extends BaseDao {
         this.languageDao = languageDao;
     }
 
-   
-
     public CategoryDao getCategoryDao() {
         if (this.categoryDao == null) {
             this.categoryDao = new CategoryDao();
         }
         return categoryDao;
     }
-    
-        public int count (String searchTerm) {
-            int count = 0 ;
-        
+
+    public int count(String searchTerm) {
+        int count = 0;
+
         try {
-            /*PreparedStatement pst = this.getConnection().prepareStatement("select count(kitab_id) as kitab_count from kutuphane ");
-           
-            ResultSet rs = pst.executeQuery();
-            rs.next() ;
-            count = rs.getInt("kitab_count") ;*/
-            
-             String query = "select count(kitab_id) as aa from kutuphane";
-			if (searchTerm != null) {
-				query += " where kitab_adi like ? ";
-			}
-			PreparedStatement st = this.getConnection().prepareStatement(query);
-			
-			if (searchTerm != null) {
-				st.setString(1, "%"+searchTerm+"%");
-			}
-			ResultSet rs = st.executeQuery();
+            String query = "select count(kitab_id) as aa from kutuphane";
+            if (searchTerm != null) {
+                query += " where kitab_adi like ? ";
+            }
+            PreparedStatement st = this.getConnection().prepareStatement(query);
 
-			rs.next();
-			count = rs.getInt("aa");
-         
-          
+            if (searchTerm != null) {
+                st.setString(1, "%" + searchTerm + "%");
+            }
+            ResultSet rs = st.executeQuery();
 
-           
+            rs.next();
+            count = rs.getInt("aa");
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        return count ;
+        return count;
     }
 
 }

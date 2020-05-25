@@ -1,4 +1,3 @@
-
 package converter;
 
 import dao.OdemelerDao;
@@ -8,10 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+@FacesConverter(value = "odemelerConverter")
+public class OdemelerConverter implements Converter {
 
-@FacesConverter(value="odemelerConverter")
-public class OdemelerConverter implements Converter{
-    
     private OdemelerDao odemelerDao;
 
     @Override
@@ -26,7 +24,7 @@ public class OdemelerConverter implements Converter{
     }
 
     public OdemelerDao getOdemelerDao() {
-        if(this.odemelerDao == null){
+        if (this.odemelerDao == null) {
             this.odemelerDao = new OdemelerDao();
         }
         return odemelerDao;

@@ -1,4 +1,3 @@
-
 package converter;
 
 import dao.KantinturDao;
@@ -8,13 +7,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-@FacesConverter(value="kantinturConverter")
-public class KantinturConverter implements Converter{
+@FacesConverter(value = "kantinturConverter")
+public class KantinturConverter implements Converter {
 
     private KantinturDao kantinturDao;
-    
-    
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         return this.getKantinturDao().find(Long.valueOf(value));
@@ -27,10 +24,10 @@ public class KantinturConverter implements Converter{
     }
 
     public KantinturDao getKantinturDao() {
-        if(this.kantinturDao == null){
+        if (this.kantinturDao == null) {
             this.kantinturDao = new KantinturDao();
         }
         return kantinturDao;
     }
-    
+
 }

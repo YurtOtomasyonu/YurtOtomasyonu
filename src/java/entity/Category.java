@@ -1,15 +1,13 @@
-
 package entity;
 
 import java.sql.Date;
 import java.util.Objects;
 
-
 public class Category {
-    
-    private Long category_id ;
-    private String name ;
-    private Date last_update ;
+
+    private Long category_id;
+    private String name;
+    private Date last_update;
 
     public Long getCategory_id() {
         return category_id;
@@ -65,6 +63,4 @@ public class Category {
         return true;
     }
 
-  
-    
 }

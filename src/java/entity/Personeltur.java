@@ -14,7 +14,7 @@ public class Personeltur {
 
     public Personeltur() {
     }
-    
+
     public Long getTur_id() {
         return tur_id;
     }
@@ -60,5 +60,5 @@ public class Personeltur {
         }
         return true;
     }
-    
+
 }

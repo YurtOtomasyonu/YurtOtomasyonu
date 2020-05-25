@@ -1,7 +1,6 @@
 package dao;
 
 import entity.Odemeler;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.DBConnection;
 
 public class OdemelerDao extends BaseDao {
 
@@ -69,7 +67,6 @@ public class OdemelerDao extends BaseDao {
                 odemelerList.add(tmp);
             }
         } catch (SQLException ex) {
-            //System.out.println(ex.getMessage());
             Logger.getLogger(OdemelerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return odemelerList;
@@ -90,7 +87,6 @@ public class OdemelerDao extends BaseDao {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //Logger.getLogger(PersonelturDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return bb;
@@ -104,7 +100,6 @@ public class OdemelerDao extends BaseDao {
 
             pst.executeUpdate();
         } catch (SQLException ex) {
-            //System.out.println(ex.getMessage());
             Logger.getLogger(OdemelerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -115,7 +110,6 @@ public class OdemelerDao extends BaseDao {
             pst.setLong(1, odemeler.getOdeme_id());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            //System.out.println(ex.getMessage());
             Logger.getLogger(OdemelerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -130,7 +124,6 @@ public class OdemelerDao extends BaseDao {
 
             pst.executeUpdate();
         } catch (SQLException ex) {
-            //System.out.println(ex.getMessage());
             Logger.getLogger(OdemelerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -1,10 +1,10 @@
-
 package entity;
 
 public class Kantin {
+
     private Long malzeme_id;
     private String isim;
-    
+
     private Kantintur kantintur;
 
     public Kantin(Long malzeme_id, String isim) {
@@ -14,7 +14,7 @@ public class Kantin {
 
     public Kantin() {
     }
-    
+
     public Long getMalzeme_id() {
         return malzeme_id;
     }
@@ -38,9 +38,5 @@ public class Kantin {
     public void setKantintur(Kantintur kantintur) {
         this.kantintur = kantintur;
     }
-    
-    
-    
-    
-    
+
 }

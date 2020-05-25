@@ -1,13 +1,12 @@
-
 package entity;
 
 import java.util.Objects;
 
-
 public class Odalar {
+
     private Long oda_id;
     private int oda_no;
-    
+
     private Bina bina;
 
     public Odalar(Long oda_id, int oda_no) {
@@ -46,6 +45,7 @@ public class Odalar {
     public String toString() {
         return "Odalar{" + "oda_id=" + oda_id + ", oda_no=" + oda_no + ", bina=" + bina + '}';
     }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -70,5 +70,5 @@ public class Odalar {
         }
         return true;
     }
-    
+
 }

@@ -19,7 +19,7 @@ public class BinaController implements Serializable {
     private List<Bina> binaList;
     private BinaDao binaDao;
     private Bina bina;
-     private int page = 1;
+    private int page = 1;
     private int pageSize = 5;
     private int pageCount;
 
@@ -63,9 +63,7 @@ public class BinaController implements Serializable {
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
-    
-   
-    
+
     public void clearForm() {
         this.bina = new Bina();
     }
@@ -84,7 +82,7 @@ public class BinaController implements Serializable {
     }
 
     public void delete() {
-        
+
         this.getBinaDao().delete(this.bina);
         this.clearForm();
     }

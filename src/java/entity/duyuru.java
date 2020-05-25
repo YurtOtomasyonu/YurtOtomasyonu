@@ -31,5 +31,4 @@ public class duyuru {
         this.duyurlar_turu = duyurlar_turu;
     }
 
-    
 }
